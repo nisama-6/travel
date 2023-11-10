@@ -1,12 +1,8 @@
 import Image from 'next/image';
 import Button from './Button';
-interface HeroProps {
-  className?: string;
-}
+import AnimatedText from './AnimatedText';
 
-const Hero = (props: HeroProps) => {
-  const { className } = props;
-
+const Hero = () => {
   return (
     <section className="padding-container relative  mx-auto grid grid-cols-1 gap-12 bg-pattern-2 bg-bottom [background-size:140%] lg:grid-cols-2 lg:py-20 2xl:max-w-container  2xl:px-0">
       <div className="flex flex-col gap-10">
@@ -20,11 +16,14 @@ const Hero = (props: HeroProps) => {
         <h1 className="text-5xl font-bold leading-[120%] lg:text-[88px]">
           Putuk Truno Camp Area
         </h1>
-        <p className="text-gray-500">
-          We want to be on each of your journeys seeking the satisfaction of
+        <div className="text-gray-500">
+          <AnimatedText
+            el="p"
+            text="We want to be on each of your journeys seeking the satisfaction of
           seeing the incorruptible beauty of nature. We can help you on an
-          adventure around the world in just one app
-        </p>
+          adventure around the world in just one app"
+          />
+        </div>
         <div className="flex flex-wrap gap-6">
           <div className="flex items-center gap-2 ">
             {Array(5)

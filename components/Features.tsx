@@ -1,6 +1,8 @@
+'use client';
 import { FEATURES } from '@/constants';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
 const Features = () => {
   return (
@@ -28,12 +30,20 @@ const Features = () => {
             <h2 className="text-4xl font-bold lg:text-6xl">Our Features</h2>
           </div>
           <ul className="lg:mg-20 mt-10 grid gap-10 md:grid-cols-2 lg:gap-20">
-            {FEATURES.map((feature) => (
+            {FEATURES.map((feature, index) => (
               <FeatureItem
                 key={feature.title}
                 title={feature.title}
                 icon={feature.icon}
                 description={feature.description}
+                initial={{ translateX: -50, opacity: 0 }}
+                whileInView={{ translateX: 0, opacity: 1 }}
+                viewport={{ once: false, amount: 'some', margin: '-100px' }}
+                transition={{
+                  delay: 0.2 * index,
+                  duration: 0.5,
+                  ease: 'easeInOut',
+                }}
               />
             ))}
           </ul>
@@ -43,15 +53,20 @@ const Features = () => {
   );
 };
 
-type FeatureItem = {
+type FeatureItemProps = {
   title: string;
   icon: string;
   description: string;
 };
 
-const FeatureItem = ({ title, icon, description }: FeatureItem) => {
+const FeatureItem = ({
+  title,
+  icon,
+  description,
+  ...rest
+}: FeatureItemProps & ComponentProps<typeof motion.li>) => {
   return (
-    <li className="flex w-full flex-1 flex-col items-start">
+    <motion.li className="flex w-full flex-1 flex-col items-start" {...rest}>
       <div className="rounded-full bg-green-600 p-4 lg:p-7">
         <Image src={icon} alt="map" width={28} height={28} />
       </div>
@@ -59,7 +74,7 @@ const FeatureItem = ({ title, icon, description }: FeatureItem) => {
       <p className="mt-5 bg-white/80 text-gray-400 lg:mt-[30px] lg:bg-none">
         {description}
       </p>
-    </li>
+    </motion.li>
   );
 };
 
